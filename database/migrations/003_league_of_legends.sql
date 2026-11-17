@@ -68,3 +68,9 @@ CREATE TABLE IF NOT EXISTS lol_draft_picks (
 CREATE INDEX IF NOT EXISTS idx_lol_player_stats_player ON lol_player_game_stats(player_id);
 CREATE INDEX IF NOT EXISTS idx_lol_player_stats_champion ON lol_player_game_stats(champion);
 CREATE INDEX IF NOT EXISTS idx_lol_game_stats_patch ON lol_game_stats(patch);
+
+-- Independent secondary source for LoL; keep its rows separately attributable.
+INSERT INTO sources (slug, name, base_url, notes)
+VALUES ('chaincc', 'ChainCC LoL Open Dataset', 'https://chaincc.lol/free/data/',
+        'CC BY 4.0; secondary dataset, 2025-2026 player-game and team-game CSVs; not Gol.gg data')
+ON CONFLICT (slug) DO NOTHING;
