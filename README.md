@@ -1,77 +1,64 @@
 # Esports Stats Database
 
-Independent public repository for historical esports match data and analytics.
+Independent historical esports data project. This repository is not connected to FijasPro.
 
 ## Scope
 
-- **VALORANT**: primary discovery source is [VLR.gg](https://www.vlr.gg/); an unofficial adapter is being evaluated. Riot/GRID Open Access may be suitable for a non-commercial academic project, but excludes betting/gambling use.
-- **League of Legends**: ChainCC CC BY 4.0 2025–2026 player-game and team-game CSVs are imported as a secondary source; Gol.gg remains the intended primary reference. Riot/GRID Open Access is available to students/researchers for non-commercial experimentation. Eligibility depends on actual functionality: bookmaker odds/lines, wager-oriented picks or bet-placement links may count as betting/gambling use and are excluded even for free academic projects.
-- **Counter-Strike 2**: HLTV is a reference source only. HLTV Terms §2.2 prohibits scraping; obtain permission/licensed data or use a separately licensed alternative dataset.
-- Historical window: **2025-01-01 through 2026-12-31** (inclusive).
+- **VALORANT**: tier-1 VCT matches and qualifying regional events, with match, map, round, player, team, per-player-map statistics, kill matchups and notable events.
+- **League of Legends**: ChainCC 2025–2026 player-game data normalized into a provisional player master.
+- **Counter-Strike 2**: planned for a later phase.
+- Historical window: **2025-01-01 through 2026-12-31** (inclusive). 2026 data is year-to-date through the latest source snapshot.
+
+## Current releases
+
+### VALORANT
+
+Source: [VCT Reference dataset](https://vct-reference.com/dataset). Terms: [VCT Reference Terms of Service](https://vct-reference.com/terms).
+
+A public DuckDB snapshot is downloaded by GitHub Actions, scoped to completed non-showmatch VCT matches from 2025 and 2026, and exported as SQLite plus CSV files. Attribution: VCT Reference (vct-reference.com). The source is an independent community project and is not affiliated with Riot Games.
+
+Latest verified release (2026-11-17):
+- 1,120 series (498 in 2025; 622 in 2026 YTD)
+- 2,860 maps and 60,587 rounds
+- 28,600 player-map rows
+- 484 players and 67 teams
+- 67,850 kill-matrix rows and 106,957 notable events
+- SQLite integrity check: `ok`; no duplicate match IDs; no orphan maps
+
+**Coverage limitations:** this dataset focuses on tier-1 VCT and qualifying events, not every open/amateur tournament. Optional performance/economy stat blocks are incomplete on some maps, especially China domestic league. Missing values are not zero; analyses must gate on `maps.performance_available` and `maps.economy_available`.
+
+### League of Legends
+
+Source: [ChainCC Open Dataset](https://chaincc.lol/free/data/), CC BY 4.0; attribution required.
+
+Latest validated player master:
+- 4,082 provisional handle-based player identity records
+- 7,011 player-team observations
+- Stable source-native player IDs are unavailable in this dataset; records may not correspond one-to-one with real people.
+
+## Combined SQLite release
+
+The combined release keeps source-specific schemas separate using table prefixes:
+- `valorant_*`: VCT Reference tables.
+- `lol_*`: ChainCC LoL player-master tables.
+- `master_metadata`: scope, sources and caveats.
+
+The SQLite file is generated as a release artifact and can be downloaded from the project’s latest successful GitHub Actions run.
+
+## Reproducibility
+
+- VALORANT acquisition and build: `.github/workflows/acquire-valorant-vct-reference.yml`
+- VALORANT builder: `scripts/build_valorant_sqlite.py`
+- LoL builder: `scripts/build_lol_player_master.py`
 
 ## Data principles
 
-1. Preserve source payloads and source URLs for traceability.
-2. Normalize matches, maps, teams, players and per-map player statistics.
-3. Never fabricate missing statistics. A missing field remains NULL / unavailable.
-4. Make ingestion idempotent using source IDs and unique constraints.
-5. Respect source terms, robots rules, rate limits and reasonable request delays. Do not bypass access controls or anti-bot protections.
-6. Record collection timestamps and parser versions.
-
-## Repository layout
-
-```text
-database/schema.sql       PostgreSQL schema
-collectors/valorant/      VALORANT ingestion client
-config/                   Example configuration
-data/raw/                 Local raw payloads (ignored by Git)
-docs/                     Source and data dictionary notes
-```
-
-## Quick start
-
-Requirements: Python 3.11+, PostgreSQL 15+ and access to a self-hosted VLR-compatible API.
-
-```bash
-python -m venv .venv
-# Windows: .venv\\Scripts\\activate
-# macOS/Linux: source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-Create a database and apply the schema:
-
-```bash
-psql "$DATABASE_URL" -f database/schema.sql
-```
-
-Copy `.env.example` to `.env` and set the database URL and VLR API base URL. Never commit credentials.
-
-Run a small test first:
-
-```bash
-python -m collectors.valorant.ingest --from 2025-01-01 --to 2026-12-31 --max-pages 1 --dry-run
-```
-
-Then remove `--dry-run` to persist the raw source payloads. The collector intentionally requires an explicitly configured API endpoint; it does not assume VLR.gg operates an official public API.
-
-## Source notes
-
-VLR.gg is a community esports statistics website, not an official Riot Games API. The project can use a compatible self-hosted adapter such as [axsddlr/vlrggapi](https://github.com/axsddlr/vlrggapi), subject to VLR.gg's written permission. Do not run automated collection or bulk imports without written permission covering the intended commercial use.
-
-## Current status
-
-- [x] Public repository initialized
-- [x] Historical window defined (2025–2026)
-- [x] Initial PostgreSQL schema
-- [x] VALORANT ingestion scaffold
-- [ ] Obtain VLR.gg written permission for automated collection and FijasPro commercial/betting use before any VALORANT backfill
-- [x] Import ChainCC LoL 2025–2026 CSV artifact (secondary source; not yet loaded into PostgreSQL)
-- [ ] Validate Gol.gg access and reconcile LoL match records
-- [ ] Confirm FijasPro has no betting/gambling functionality before using GRID Open Access; if it does, Open Access is excluded regardless of non-commercial status
-- [ ] Identify a licensed CS2 2025–2026 match-level dataset; do not scrape HLTV
-- [ ] Analytics API and dashboards
+1. Preserve source attribution and record the source URL.
+2. Never fabricate missing statistics; missing values remain NULL/unavailable.
+3. Preserve source IDs and source-specific schemas.
+4. Record coverage limitations and collection timestamps.
+5. Respect each provider's terms and do not bypass access controls or anti-bot protections.
 
 ## License
 
-No license has been selected yet. Until one is added, default copyright applies to original code. Source data remains subject to the respective providers' terms and rights.
+Original repository code and imported datasets have separate rights. Source data remains subject to the terms and licenses of its respective providers. No blanket license is granted for third-party data by this repository.
