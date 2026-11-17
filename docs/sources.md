@@ -43,9 +43,9 @@ For CS2 historical match-level data, evaluate alternative sources whose redistri
 
 VLR.gg Terms of Service, last updated 2025-09-16: https://www.vlr.gg/terms
 
-The current terms prohibit automated/non-human access, data mining/scraping, systematically retrieving content to build a database without written permission, and commercial exploitation without express prior written permission. This directly affects the proposed FijasPro betting-oriented use case.
+The terms allow properly accessed content for personal, non-commercial use, but separately prohibit automated/non-human access and systematically retrieving data to build or compile a database without VLR's written permission. The non-commercial nature of a university project does **not** waive those separate restrictions.
 
-Therefore VLR.gg is a **reference/discovery source only** for this project unless VLR.gg grants written permission covering both automated collection and the intended downstream commercial/betting use. Do not run the VLR adapter or bulk backfill before that permission is obtained. The unofficial `axsddlr/vlrggapi` project is a scraper adapter, not an official API; its MIT code licence does not grant rights to VLR content.
+Therefore VLR.gg can be used as a human-accessed reference within the stated personal/non-commercial scope, but automated collection and a systematic historical database require written permission. Do not run the VLR adapter or bulk backfill before that permission is obtained. The unofficial `axsddlr/vlrggapi` project is a scraper adapter, not an official API; its MIT code licence does not grant rights to VLR content.
 
 The collector now includes an explicit permission confirmation guard, but that flag is an operator attestation, not proof of permission. Do not use it unless written permission has actually been obtained.
 
@@ -62,5 +62,7 @@ Riot/GRID Open Access exposes official LoL and VALORANT esports feeds (Central D
 - It may only be evaluated for a separate non-commercial prototype that complies with its terms.
 - For FijasPro, obtain written commercial/betting-use permission and a suitable GRID licence before relying on these feeds.
 - The existence of Riot's ordinary developer APIs does not imply access to professional esports historical match feeds or permission for betting use.
+
+For a genuinely non-commercial academic project with no betting/gambling functionality, GRID Open Access is intended for students, researchers and early-stage projects; eligibility, event coverage, delayed-data conditions and the Open Access terms still apply. GRID explicitly excludes any betting or gambling use, even if the project is free and does not earn revenue. If FijasPro includes odds, bookmaker links, wager recommendations, betting picks or other gambling functionality, do not use Open Access data for that functionality without a suitable licence/approval from GRID.
 
 This restriction is separate from the ChainCC CC BY 4.0 dataset; keep each source's licence and provenance independent.
