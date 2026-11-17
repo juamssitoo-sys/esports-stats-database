@@ -42,3 +42,19 @@ For CS2 historical match-level data, evaluate alternative sources whose redistri
 ## VALORANT — VLR adapter status
 
 The project has identified https://github.com/axsddlr/vlrggapi as a self-hostable, unofficial VLR adapter. Its hosted public instance is reported down in its README; it must be self-hosted and tested with a small sample before any bulk backfill. This is not an official Riot or VLR API. Follow VLR's current terms, rate limits and access restrictions; no anti-bot or access-control bypass is allowed.
+
+
+## Riot Games Open Access powered by GRID — important restriction
+
+Official announcement: https://lolesports.com/en-US/news/build-with-official-league-of-legends-esports-data  
+Access portal and terms: https://grid.gg/riot-open-access/
+
+Riot/GRID Open Access exposes official LoL and VALORANT esports feeds (Central Data Feed and Series State API/Loopfeed). The initial event coverage announced is Worlds 2026; do not infer that it contains the full 2025–2026 historical catalogue.
+
+**This free Open Access tier is not eligible as a data source for FijasPro's betting-oriented use case.** GRID states that Open Access is for non-commercial learning/experimentation and explicitly excludes betting or gambling use. A commercial licence is required for commercial products, subject to GRID approval and pricing. Therefore:
+- Do not ingest Open Access data into the FijasPro pipeline or use it to generate betting recommendations.
+- It may only be evaluated for a separate non-commercial prototype that complies with its terms.
+- For FijasPro, obtain written commercial/betting-use permission and a suitable GRID licence before relying on these feeds.
+- The existence of Riot's ordinary developer APIs does not imply access to professional esports historical match feeds or permission for betting use.
+
+This restriction is separate from the ChainCC CC BY 4.0 dataset; keep each source's licence and provenance independent.
