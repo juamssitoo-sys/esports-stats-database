@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
-  actions: write
+  actions: read
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,15 +16,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Download ChainCC player CSVs
-        run: |
-          mkdir -p data/raw/chaincc
-          curl -fL https://chaincc.lol/data/chaincc-players-2025.csv.gz -o /tmp/players-2025.csv.gz
-          curl -fL https://chaincc.lol/data/chaincc-players-2026.csv.gz -o /tmp/players-2026.csv.gz
-          gzip -dc /tmp/players-2025.csv.gz > data/raw/chaincc/chaincc-players-2025.csv
-          gzip -dc /tmp/players-2026.csv.gz > data/raw/chaincc/chaincc-players-2026.csv
+      - name: Download validated ChainCC source artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: chaincc-lol-2025-2026
+          repository: juamssitoo-sys/esports-stats-database
+          run-id: 44026633208
+          github-token: ${{ github.token }}
+          path: data/incoming
       - name: Build player master
-        run: python scripts/build_lol_player_master.py
+        run: python scripts/build_lol_player_master.py --input-dir data/incoming/curated/lol/chaincc
       - name: Validate output
         run: |
           python - <<'PY'
