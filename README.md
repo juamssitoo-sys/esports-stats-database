@@ -4,8 +4,8 @@ Independent public repository for historical esports match data and analytics.
 
 ## Scope
 
-- **VALORANT**: primary discovery source is [VLR.gg](https://www.vlr.gg/); an unofficial adapter is being evaluated. Riot/GRID Open Access is not suitable for FijasPro's betting use without a commercial licence.
-- **League of Legends**: ChainCC CC BY 4.0 2025–2026 player-game and team-game CSVs are imported as a secondary source; Gol.gg remains the intended primary reference. Riot/GRID Open Access excludes betting/gambling use and is not suitable for FijasPro without a commercial licence.
+- **VALORANT**: primary discovery source is [VLR.gg](https://www.vlr.gg/); an unofficial adapter is being evaluated. Riot/GRID Open Access may be suitable for a non-commercial academic project, but excludes betting/gambling use.
+- **League of Legends**: ChainCC CC BY 4.0 2025–2026 player-game and team-game CSVs are imported as a secondary source; Gol.gg remains the intended primary reference. Riot/GRID Open Access is intended for students/researchers and non-commercial experimentation, but excludes betting/gambling use regardless of whether the project earns money.
 - **Counter-Strike 2**: HLTV is a reference source only. HLTV Terms §2.2 prohibits scraping; obtain permission/licensed data or use a separately licensed alternative dataset.
 - Historical window: **2025-01-01 through 2026-12-31** (inclusive).
 
@@ -68,7 +68,7 @@ VLR.gg is a community esports statistics website, not an official Riot Games API
 - [ ] Obtain VLR.gg written permission for automated collection and FijasPro commercial/betting use before any VALORANT backfill
 - [x] Import ChainCC LoL 2025–2026 CSV artifact (secondary source; not yet loaded into PostgreSQL)
 - [ ] Validate Gol.gg access and reconcile LoL match records
-- [ ] Obtain a GRID commercial licence before any FijasPro use of official Riot/GRID esports feeds (free Open Access explicitly excludes betting/gambling use)
+- [ ] Confirm FijasPro has no betting/gambling functionality before using GRID Open Access; if it does, Open Access is excluded regardless of non-commercial status
 - [ ] Identify a licensed CS2 2025–2026 match-level dataset; do not scrape HLTV
 - [ ] Analytics API and dashboards
 
