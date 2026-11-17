@@ -26,6 +26,21 @@ Audit date: 2026-11-17. A public repository does not automatically grant permiss
 - Its README warns that the hosted Vercel instance is down; self-hosting is the documented route.
 - Use as an adapter/code reference only. VLR content remains subject to VLR terms and access rules. Validate date coverage and rate limits before backfill.
 
+
+### VALORANT — VCT Reference DuckDB (free, 13 MB)
+- Dataset page: https://vct-reference.com/dataset
+- Download: https://vct-reference.com/vct.duckdb
+- Last dataset rebuild shown on page: 2026-11-12; site says it is rebuilt daily.
+- Coverage: Tier 1 VCT matches since 2021, including international events and qualifying regional events. Includes matches, maps, rounds, player_map (one row per player per map), players (stable ID, handle, country), teams, kill matrix and clutch/multikill events.
+- Player/map fields include rating, ACS, ADR, KAST, headshot percentage, K/D/A and opening duels. Coverage is uneven: China has materially lower detail coverage; queries must gate on performance/economy availability flags and preserve NULLs rather than interpreting missing blocks as zero.
+- The dataset page says the file is free to use, including commercially, but directs users to its Terms of Service. Those Terms (https://vct-reference.com/terms; updated 2026-05-29) explicitly prohibit using displayed statistics as a basis for gambling, betting, fantasy sports or financial decisions. Since FijasPro's intended workflow includes wager-oriented Over/Under forecasts, **do not ingest this dataset into the FijasPro pipeline or use it to produce those forecasts**. It may only be assessed for a separate non-betting research/archive use after confirming the exact intended use is compatible.
+- Decision: free and technically very relevant, but **not approved for FijasPro's betting-oriented use**. Do not confuse the site's permission to download the file with permission for every downstream use.
+
+### VALORANT — unofficial VLR adapters (code reference only)
+- https://github.com/axsddlr/vlrggapi and https://github.com/Orloxx23/vlresports expose player/team/event/match and per-map player-stat endpoints by scraping VLR.gg.
+- Their code licences do not grant rights to VLR's underlying content. VLR's Terms still restrict automated access and systematic database compilation without written permission. Do not run these adapters against VLR or use hosted instances for bulk collection without VLR's written authorization.
+- A public GitHub repository containing a scraper is not evidence that the source website permits scraping.
+
 ### CS2 — Aokua/csgopred
 - Repository: https://github.com/Aokua/csgopred
 - README reports 68,523 deduplicated matches from 2015-11 through 2026-10, 56,730 maps, and a raw player-statistics CSV via Git LFS.
