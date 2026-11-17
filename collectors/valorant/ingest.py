@@ -11,8 +11,7 @@ import hashlib
 import json
 import os
 import time
-from datetime import date, datetime, timezone
-from pathlib import Path
+from datetime import date, datetime
 from typing import Any
 
 import httpx
@@ -99,6 +98,9 @@ def main() -> None:
     headers = {"User-Agent": user_agent, "Accept": "application/json"}
     count = 0
     conn_context = psycopg.connect(db_url) if (db_url and not args.dry_run) else None
+    source_db_id = game_db_id = None
+    if conn_context:
+        source_db_id, game_db_id = get_source_ids(conn_context)
     try:
         with httpx.Client(timeout=timeout, headers=headers, follow_redirects=True) as client:
             for page in range(1, args.max_pages + 1):
@@ -122,7 +124,7 @@ def main() -> None:
                                 break
                             except ValueError:
                                 pass
-                    if parsed_date and not (args.date_from <= parsed_date <= args.date_to):
+                    if parsed_date is None or not (args.date_from <= parsed_date <= args.date_to):
                         continue
                     source_id = str(match.get("id") or match.get("match_id") or "") or None
                     source_url = match.get("url") or match.get("match_page")
@@ -130,8 +132,8 @@ def main() -> None:
                         print(json.dumps({"source_id": source_id, "date": match_date, "url": source_url}, ensure_ascii=False))
                     else:
                         assert conn_context is not None
-                        _, game_id = get_source_ids(conn_context)
-                        store_payload(conn_context, 1, game_id, "match_result", source_id, source_url, match)
+                        assert source_db_id is not None and game_db_id is not None
+                        store_payload(conn_context, source_db_id, game_db_id, "match_result", source_id, source_url, match)
                     count += 1
                 if not args.dry_run and conn_context:
                     conn_context.commit()
