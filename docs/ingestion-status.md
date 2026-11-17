@@ -19,6 +19,31 @@ The four original gzipped CSVs and four date-filtered CSVs plus manifest were up
 
 This dataset is an attributed secondary source, not Gol.gg data. Its own source label and CC BY 4.0 attribution must remain attached to any redistribution. It is not yet loaded into PostgreSQL or merged with Gol.gg records.
 
+
+## Provisional LoL player master generated (ChainCC snapshot)
+
+Generated from the existing ChainCC 2025–2026 artifact on 2026-11-17 13:06 UTC.
+
+| Output | Count |
+|---|---:|
+| Player-game source rows | 199,830 |
+| Provisional normalized handle identities | 4,082 |
+| Player-team observations | 7,011 |
+| Unique game IDs | 19,983 |
+
+Files produced:
+- `data/curated/lol/chaincc/players_master_2025_2026.csv`
+- `data/curated/lol/chaincc/player_team_observations_2025_2026.csv`
+- `data/curated/lol/chaincc/players_master_manifest.json`
+
+Important identity limitation: ChainCC's CSV does not expose a stable player ID, legal/real name or country. The generated `player_id` values are deterministic project keys derived from normalized handles, **not authoritative identities**. Same-handle players may collide; no cross-source merge by handle alone is permitted. Team date ranges mean first/last observed game only, not contract/official roster dates. 4,082 is a count of provisional source-handle identities, not a verified count of unique human players.
+
+A reproducible standard-library builder was committed at `scripts/build_lol_player_master.py`; GitHub Actions workflow `Build LoL player master` downloads the current ChainCC player CSVs, rebuilds, validates and publishes a 90-day artifact. This workflow's first run must be checked before calling the automated pipeline verified.
+
+## VALORANT source decision
+
+The free VCT Reference DuckDB is technically rich (Tier 1 VCT since 2021, player/map statistics), but its terms exclude betting/fantasy/financial-decision use. It is therefore not approved for FijasPro's wager-oriented forecasts. GRID Open Access is also explicitly non-betting only and its initial coverage starts with Worlds 2026. No compatible free VALORANT historical source has yet passed both provenance and usage-rights review. Do not scrape VLR without written permission or use a dataset whose terms exclude the intended use.
+
 ## Primary-source collection status
 
 | Primary source | Status |
