@@ -29,6 +29,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--to", dest="date_to", type=date.fromisoformat, required=True)
     parser.add_argument("--max-pages", type=int, default=1, help="Maximum results pages to request.")
     parser.add_argument("--dry-run", action="store_true", help="Fetch and validate without database writes.")
+    parser.add_argument("--permission-confirmed", action="store_true", help="Confirm that written VLR.gg permission covers automated collection and the intended downstream use.")
     return parser.parse_args()
 
 
@@ -116,6 +117,8 @@ def main() -> None:
     args = parse_args()
     if args.date_to < args.date_from:
         raise SystemExit("--to must be on or after --from")
+    if not args.permission_confirmed:
+        raise SystemExit("Blocked: obtain written VLR.gg permission for automated collection and downstream use before running this collector. Then pass --permission-confirmed.")
     base = os.getenv("VLR_API_BASE_URL", "").rstrip("/")
     if not base:
         raise SystemExit("Set VLR_API_BASE_URL in .env to your self-hosted VLR-compatible API.")
