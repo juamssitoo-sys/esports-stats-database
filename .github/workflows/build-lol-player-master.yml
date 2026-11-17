@@ -1,0 +1,44 @@
+name: Build LoL player master
+on:
+  push:
+    paths:
+      - 'scripts/build_lol_player_master.py'
+      - '.github/workflows/build-lol-player-master.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download ChainCC player CSVs
+        run: |
+          mkdir -p data/raw/chaincc
+          curl -fL https://chaincc.lol/data/chaincc-players-2025.csv.gz -o /tmp/players-2025.csv.gz
+          curl -fL https://chaincc.lol/data/chaincc-players-2026.csv.gz -o /tmp/players-2026.csv.gz
+          gzip -dc /tmp/players-2025.csv.gz > data/raw/chaincc/chaincc-players-2025.csv
+          gzip -dc /tmp/players-2026.csv.gz > data/raw/chaincc/chaincc-players-2026.csv
+      - name: Build player master
+        run: python scripts/build_lol_player_master.py
+      - name: Validate output
+        run: |
+          python - <<'PY'
+          import csv, json
+          p='data/curated/lol/chaincc/players_master_2025_2026.csv'
+          with open(p, newline='', encoding='utf-8') as f: rows=list(csv.DictReader(f))
+          assert len(rows)>1000, f'Unexpected player count: {len(rows)}'
+          assert all(r['player_id'] and r['identity_status']=='PROVISIONAL_HANDLE_ONLY' for r in rows)
+          m=json.load(open('data/curated/lol/chaincc/players_master_manifest.json'))
+          assert m['unique_source_handle_keys']==len(rows)
+          print(f"Validated {len(rows)} provisional LoL player identities")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lol-player-master-2025-2026
+          path: data/curated/lol/chaincc/
+          retention-days: 90
