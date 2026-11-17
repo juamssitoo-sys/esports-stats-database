@@ -3,7 +3,7 @@
 | Game | Primary source | Status | Scope |
 |---|---|---|---|
 | VALORANT | https://www.vlr.gg/ | Adapter scaffold | Matches, maps, player stats |
-| Counter-Strike 2 | https://www.hltv.org/ | Source specification added | Events, matches, maps, player stats |
+| Counter-Strike 2 | https://www.hltv.org/ | Reference only; automated scraping prohibited by HLTV Terms §2.2 | Events, matches, maps, player stats; obtain data only through permitted/licensed exports or alternative datasets |
 | League of Legends | https://gol.gg/esports/home/ | Primary reference; pending validation | Tournament, game, draft and player statistics |
 | League of Legends (secondary) | https://chaincc.lol/free/data/ | Imported successfully; GitHub Actions artifact | 199,830 player-game + 39,966 team-game rows; 2026 is year-to-date; separate provenance |
 
@@ -32,3 +32,13 @@ Gol.gg also offers some premium analyst/betting features; do not assume those fi
 - Do not assume an official API exists where none has been documented.
 - Do not circumvent authentication, CAPTCHAs, anti-bot controls or technical restrictions.
 - Missing values remain NULL and all calculated rates show their sample size.
+
+## Counter-Strike 2 — HLTV terms restriction
+
+HLTV Terms of Service (effective 2025-01-27), section 2.2, explicitly prohibits data mining or web scraping of the website/content and commercial exploitation of its content. Therefore this project must not run a scraper against HLTV, use Cloudflare bypasses, or mirror HLTV page data without permission. HLTV remains a manual reference for verification only unless written permission or a licensed data export is obtained. The existing CS2 schema is a target data model, not evidence that HLTV collection is authorized or implemented. See https://www.hltv.org/terms.
+
+For CS2 historical match-level data, evaluate alternative sources whose redistribution rights and 2025–2026 match-level coverage can be verified (for example, properly licensed demo/stat datasets or direct tournament data releases). Do not assume a GitHub repository's code license also licenses its third-party data.
+
+## VALORANT — VLR adapter status
+
+The project has identified https://github.com/axsddlr/vlrggapi as a self-hostable, unofficial VLR adapter. Its hosted public instance is reported down in its README; it must be self-hosted and tested with a small sample before any bulk backfill. This is not an official Riot or VLR API. Follow VLR's current terms, rate limits and access restrictions; no anti-bot or access-control bypass is allowed.
