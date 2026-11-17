@@ -10,6 +10,31 @@ def mean(values):
     vals=[v for v in values if v is not None]
     return round(sum(vals)/len(vals),1) if vals else None
 
+def extract_agents(raw):
+    if raw is None:
+        return []
+    value=raw
+    if isinstance(value,str):
+        try:
+            value=json.loads(value)
+        except (json.JSONDecodeError,TypeError):
+            value=[part.strip() for part in re.split(r"[,|]",value) if part.strip()]
+    if isinstance(value,dict):
+        value=[value]
+    if not isinstance(value,(list,tuple)):
+        value=[value]
+    names=[]
+    for item in value:
+        if isinstance(item,dict):
+            name=next((item.get(k) for k in ("name","agent","agent_name","character") if item.get(k)),None)
+        else:
+            name=item
+        if name is not None:
+            cleaned=str(name).strip()
+            if cleaned and cleaned.lower() not in ("unknown","none","null"):
+                names.append(cleaned)
+    return list(dict.fromkeys(names))
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--valorant-dir",required=True)
@@ -59,15 +84,23 @@ def main():
         for pid,rs in grouped[tid].items():
             p=players.get(pid,{})
             agents=collections.Counter()
+            agent_kills=collections.defaultdict(list)
             for rr in rs:
-                for ag in re.findall(r"[a-zA-Z][a-zA-Z0-9_-]*",rr.get("agents") or ""):
-                    agents[ag.title()]+=1
+                row_agents=extract_agents(rr.get("agents"))
+                for ag in row_agents:
+                    agents[ag]+=1
+                    if rr.get("kills_all") is not None:
+                        agent_kills[ag].append(rr.get("kills_all"))
+            agent_stats=[{"name":ag,"maps":len(values),"avgKills":mean(values)}
+                         for ag,values in agent_kills.items()]
+            agent_stats.sort(key=lambda x:(x["maps"],x["avgKills"] or 0),reverse=True)
             pout.append({"id":pid,"name":p.get("player_name") or "Unknown","country":p.get("country") or "",
               "maps":len(rs),"avgKills":mean([x.get("kills_all") for x in rs]),
               "avgDeaths":mean([x.get("deaths_all") for x in rs]),"avgAssists":mean([x.get("assists_all") for x in rs]),
               "avgAcs":mean([x.get("acs_all") for x in rs]),"avgAdr":mean([x.get("adr_all") for x in rs]),
               "avgRating":mean([x.get("rating_all") for x in rs]),"avgKast":mean([x.get("kast_all") for x in rs]),
-              "agents":[{"name":k,"maps":v} for k,v in agents.most_common(5)]})
+              "agents":[{"name":k,"maps":v} for k,v in agents.most_common(5)],
+              "agentStats":agent_stats})
         pout.sort(key=lambda x:(x["maps"],x["avgKills"] or 0),reverse=True)
         mstats=[]
         for mn,ms in map_stats.items():
