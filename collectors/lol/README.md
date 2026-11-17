@@ -1,38 +1,38 @@
-# League of Legends collector — source specification
+# League of Legends collector — Gol.gg CSV ingestion
 
-**Primary source:** [Games of Legends (Gol.gg)](https://gol.gg/esports/home/)
+**Source:** [Games of Legends (Gol.gg)](https://gol.gg/esports/home/)
 
-Gol.gg presents competitive League of Legends statistics and links to recent games, tournament pages, match lists, and tournament/player/team/champion statistics.
+## Current status
 
-## Historical scope
+- Gol.gg's homepage identifies it as a home for competitive League of Legends statistics.
+- Automated crawling is **not enabled**. The site's current robots.txt and terms could not be reliably verified in this pass, so this project does not send automated requests to match pages.
+- The importer accepts a CSV export that the operator is permitted to obtain. It preserves every original row alongside normalized fields and provenance metadata.
+- This is a staging/import step, not a completed historical backfill or database loader.
 
-- Start: 2025-01-01
-- End: 2026-12-31
-- Competitions: professional matches discoverable on Gol.gg during this window.
+## Date scope
 
-## Collection targets
+Only records dated 2025-01-01 through 2026-12-31 are written. Rows outside the window are counted and skipped.
 
-1. Tournament metadata and source URL.
-2. Individual game identity, match/tournament association, date, patch, duration, side and result.
-3. Team-level results and objectives: kills, gold, towers, dragons by type, barons, first blood and first tower.
-4. Player-game statistics: champion, role, K/D/A, CS, gold, damage and vision metrics where published.
-5. Draft picks and bans.
-6. Objective/event timeline only if the page exposes a reliable structured record.
+## Run
 
-## Implementation status
+```bash
+python -m collectors.lol.csv_import path/to/golgg-export.csv \
+  --output data/raw/golgg-games.jsonl \
+  --source-url "https://gol.gg/esports/home/"
+```
 
-**Specification only — no live ingestion is implemented or validated yet.** The public site is the selected source, but no official Gol.gg API has been verified. Do not build against an assumed API or undocumented endpoint. First inspect representative tournament, match and player pages and determine which fields are actually present in the public HTML.
+The importer reports accepted, rejected and out-of-window rows. It records the input SHA-256, retrieval timestamp, source URL, parser version and original CSV row. Unknown source columns remain in the raw row. Missing values remain null; numeric fields are not guessed.
 
-## Responsible access
+## Supported initial CSV columns
 
-- Review current terms of use and robots rules before collection.
-- Use conservative request pacing and identify the collector appropriately.
-- Do not bypass login, subscription, CAPTCHA, anti-bot or other technical controls.
-- Do not claim access to premium analyst/betting features unless separately authorized.
-- Save immutable raw captures with URL, fetched timestamp, payload hash and parser version.
-- Keep missing values NULL; never fabricate or infer match statistics.
-- Make ingestion idempotent using stable source identifiers and unique constraints.
+Header aliases are deliberately conservative: date, tournament, team, opponent, player, champion, kills, deaths, assists, CS, gold and duration. Add aliases only after inspecting a real export. The importer does not claim to normalize every Gol.gg page or all available metrics.
 
-## Analysis requirements
+## Tests
 
-For any Over/Under or frequency calculation, expose the exact population and sample size (for example, player-game observations or team-games). Do not mix series-level and individual-game denominators. Record whether the statistic is a per-game count, rate, percentage or cumulative total.
+```bash
+python -m unittest discover -s tests
+```
+
+## Next validation gate
+
+Obtain a permitted representative CSV export and compare normalized records against the corresponding Gol.gg match page. Only then expand the field mapping and implement database upserts. Do not bypass login, subscription, CAPTCHA, robots rules or technical restrictions.
