@@ -119,7 +119,7 @@ export async function GET() {
       id: t.id, name: t.name, country: t.country, matches: t.matches, wins: t.wins,
       winRate: t.matches ? Math.round(t.wins / t.matches * 1000) / 10 : null,
       maps: t.maps, mapWins: t.mapWins, players: t.players.size,
-    })).sort((a,b) => b.wins - a.wins || b.winRate - a.winRate);
+    })).sort((a,b) => b.wins - a.wins || (b.winRate ?? 0) - (a.winRate ?? 0));
     const mapsOut = [...mapStats.values()].map(m => ({
       name: m.name, games: m.games,
       teams: [...m.teams.values()].sort((a,b) => b.wins - a.wins).slice(0, 20),
