@@ -18,7 +18,7 @@ def extract_agents(raw):
         try:
             value=json.loads(value)
         except (json.JSONDecodeError,TypeError):
-            value=[part.strip() for part in re.split(r"[,|]",value) if part.strip()]
+            value=re.findall(r"[A-Za-z][A-Za-z0-9_/-]*",value)
     if isinstance(value,dict):
         value=[value]
     if not isinstance(value,(list,tuple)):
@@ -30,9 +30,9 @@ def extract_agents(raw):
         else:
             name=item
         if name is not None:
-            cleaned=str(name).strip()
+            cleaned=str(name).strip().strip("[](){}\\\"'")
             if cleaned and cleaned.lower() not in ("unknown","none","null"):
-                names.append(cleaned)
+                names.append(cleaned.title())
     return list(dict.fromkeys(names))
 
 def main():
@@ -72,8 +72,10 @@ def main():
             s["wins"][t0]+=1; team_stats[t0]["mapWins"]+=1
         elif mr["score1"]>mr["score0"]:
             s["wins"][t1]+=1; team_stats[t1]["mapWins"]+=1
-    player_rows=rows(vdb,"""SELECT pm.*,m.team0_id,m.team1_id FROM player_map pm
-       JOIN matches m USING(match_id) WHERE m.listing_status='Completed' AND m.is_showmatch=0""")
+    player_rows=rows(vdb,"""SELECT pm.*,m.team0_id,m.team1_id,mp.map_name FROM player_map pm
+       JOIN matches m USING(match_id)
+       JOIN maps mp ON mp.game_id=pm.game_id
+       WHERE m.listing_status='Completed' AND m.is_showmatch=0""")
     grouped=collections.defaultdict(lambda:collections.defaultdict(list))
     for r in player_rows:
         tid=r["team0_id"] if r["team_idx"]==0 else r["team1_id"] if r["team_idx"]==1 else None
@@ -85,22 +87,28 @@ def main():
             p=players.get(pid,{})
             agents=collections.Counter()
             agent_kills=collections.defaultdict(list)
+            agent_map_kills=collections.defaultdict(list)
             for rr in rs:
                 row_agents=extract_agents(rr.get("agents"))
+                map_name=rr.get("map_name") or "Unknown"
                 for ag in row_agents:
                     agents[ag]+=1
                     if rr.get("kills_all") is not None:
                         agent_kills[ag].append(rr.get("kills_all"))
+                        agent_map_kills[(ag,map_name)].append(rr.get("kills_all"))
             agent_stats=[{"name":ag,"maps":len(values),"avgKills":mean(values)}
                          for ag,values in agent_kills.items()]
             agent_stats.sort(key=lambda x:(x["maps"],x["avgKills"] or 0),reverse=True)
+            agent_map_stats=[{"agent":ag,"map":mn,"maps":len(values),"avgKills":mean(values)}
+                             for (ag,mn),values in agent_map_kills.items()]
+            agent_map_stats.sort(key=lambda x:(x["agent"],x["map"]))
             pout.append({"id":pid,"name":p.get("player_name") or "Unknown","country":p.get("country") or "",
               "maps":len(rs),"avgKills":mean([x.get("kills_all") for x in rs]),
               "avgDeaths":mean([x.get("deaths_all") for x in rs]),"avgAssists":mean([x.get("assists_all") for x in rs]),
               "avgAcs":mean([x.get("acs_all") for x in rs]),"avgAdr":mean([x.get("adr_all") for x in rs]),
               "avgRating":mean([x.get("rating_all") for x in rs]),"avgKast":mean([x.get("kast_all") for x in rs]),
               "agents":[{"name":k,"maps":v} for k,v in agents.most_common(5)],
-              "agentStats":agent_stats})
+              "agentStats":agent_stats,"agentMapStats":agent_map_stats})
         pout.sort(key=lambda x:(x["maps"],x["avgKills"] or 0),reverse=True)
         mstats=[]
         for mn,ms in map_stats.items():
