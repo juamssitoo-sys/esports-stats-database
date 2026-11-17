@@ -8,8 +8,6 @@ on:
       - 'web/next.config.ts'
       - 'web/scripts/**'
       - '.github/workflows/build-web.yml'
-    paths-ignore:
-      - 'web/public/data/**'
   workflow_dispatch:
 permissions:
   contents: write
