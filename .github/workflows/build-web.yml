@@ -9,11 +9,15 @@ on:
       - 'web/scripts/**'
       - '.github/workflows/build-web.yml'
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Acquire VALORANT historical dataset"]
+    types: [completed]
 permissions:
   contents: write
   actions: read
 jobs:
   build:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -25,7 +29,7 @@ jobs:
         with:
           name: valorant-vct-reference-2025-2026
           repository: juamssitoo-sys/esports-stats-database
-          run-id: 44094280734
+          run-id: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || '44094280734' }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: /tmp/valorant
       - name: Download League of Legends database artifact
