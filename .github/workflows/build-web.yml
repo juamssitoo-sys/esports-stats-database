@@ -1,0 +1,58 @@
+name: Build esports statistics web
+on:
+  push:
+    paths:
+      - 'web/app/**'
+      - 'web/package.json'
+      - 'web/tsconfig.json'
+      - 'web/next.config.ts'
+      - 'web/scripts/**'
+      - '.github/workflows/build-web.yml'
+    paths-ignore:
+      - 'web/public/data/**'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download VALORANT database artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: valorant-vct-reference-2025-2026
+          repository: juamssitoo-sys/esports-stats-database
+          run-id: 44094280734
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/valorant
+      - name: Download League of Legends database artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: lol-player-master-2025-2026
+          repository: juamssitoo-sys/esports-stats-database
+          run-id: 44091547278
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/lol
+      - name: Generate web data
+        run: |
+          python web/scripts/build-data.py --valorant-dir /tmp/valorant --lol-dir /tmp/lol --out web/public/data
+      - name: Install dependencies and build
+        working-directory: web
+        run: |
+          npm install
+          npm run build
+      - name: Commit generated data
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore(data): refresh web esports dataset'
+          file_pattern: 'web/public/data/esports.json'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: esports-atlas-web-build
+          path: web/.next/
+          retention-days: 30
