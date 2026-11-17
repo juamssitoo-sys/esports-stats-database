@@ -23,7 +23,7 @@ This dataset is an attributed secondary source, not Gol.gg data. Its own source 
 
 | Primary source | Status |
 |---|---|
-| VLR.gg (VALORANT) | Repository/API adapter identified; self-hosting and source access validation still required |
+| VLR.gg (VALORANT) | **Blocked for FijasPro use pending written permission**: current Terms prohibit automated collection/database compilation and commercial exploitation without permission; collector now has an explicit permission guard |
 | HLTV (CS2) | Source-specific collection and permitted access still to be validated |
 | Gol.gg (LoL) | Source-specific export/access still to be validated |
 
@@ -35,3 +35,11 @@ No HLTV or VLR scrape has been run. We explicitly excluded a third-party HLTV sc
 2. Validate the 2025–2026 LoL records against Gol.gg where possible; keep both source versions separate.
 3. Build date-scoped, stable-ID match ingestors for VLR and HLTV only after access and rate limits are confirmed.
 4. Maintain dated roster history and aliases; never collapse teams or players by display name alone.
+
+
+## Newly verified licensing blockers (2026-11-17)
+
+- VLR.gg Terms (updated 2025-09-16) prohibit automated/non-human access, scraping/data mining, systematic database compilation without written permission, and commercial exploitation without express prior written permission. No VLR automated collection has been run. The VALORANT collector now stops unless the operator explicitly attests to written permission; this flag is not a substitute for obtaining that permission.
+- Riot/GRID Open Access supports official LoL and VALORANT esports feeds, initially Worlds 2026, but its free tier is non-commercial and explicitly excludes betting/gambling. It cannot be used in FijasPro without a commercial GRID licence.
+- ChainCC CC BY 4.0 remains the only imported LoL source currently eligible for commercial reuse subject to attribution and the licence conditions. It remains in a GitHub Actions artifact, not PostgreSQL.
+- Consequently, the immediate next step for VALORANT is to secure a written VLR licence or a separate licensed commercial data provider; for official Riot/GRID feeds, request a commercial licence. Do not treat the public Open Access key as permission for FijasPro.
