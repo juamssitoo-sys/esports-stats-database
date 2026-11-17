@@ -5,7 +5,8 @@ Independent public repository for historical esports match data and analytics.
 ## Scope
 
 - **VALORANT**: primary ingestion source is [VLR.gg](https://www.vlr.gg/).
-- **League of Legends** and **Counter-Strike 2**: separate source adapters will be added after the VALORANT pipeline is validated.
+- **League of Legends**: ChainCC CC BY 4.0 2025–2026 player-game and team-game CSVs are imported as a secondary source; Gol.gg remains the intended primary reference.
+- **Counter-Strike 2**: HLTV is a reference source only. HLTV Terms §2.2 prohibits scraping; obtain permission/licensed data or use a separately licensed alternative dataset.
 - Historical window: **2025-01-01 through 2026-12-31** (inclusive).
 
 ## Data principles
@@ -64,10 +65,10 @@ VLR.gg is a community esports statistics website, not an official Riot Games API
 - [x] Historical window defined (2025–2026)
 - [x] Initial PostgreSQL schema
 - [x] VALORANT ingestion scaffold
-- [ ] Verify source adapter against live VLR pages
-- [ ] Backfill completed matches from 2025
-- [ ] Add League of Legends adapter
-- [ ] Add Counter-Strike 2 adapter
+- [ ] Self-host and validate the VLR adapter; backfill 2025–2026 where permitted
+- [x] Import ChainCC LoL 2025–2026 CSV artifact (secondary source; not yet loaded into PostgreSQL)
+- [ ] Validate Gol.gg access and reconcile LoL match records
+- [ ] Identify a licensed CS2 2025–2026 match-level dataset; do not scrape HLTV
 - [ ] Analytics API and dashboards
 
 ## License
