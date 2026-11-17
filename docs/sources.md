@@ -4,7 +4,7 @@
 |---|---|---|---|
 | VALORANT | https://www.vlr.gg/ | Adapter scaffold | Matches, maps, player stats |
 | Counter-Strike 2 | https://www.hltv.org/ | Source specification added | Events, matches, maps, player stats |
-| League of Legends | https://gol.gg/esports/home/ | Source specification added | Tournaments, games, drafts, team/player statistics |
+| League of Legends | https://gol.gg/esports/home/ | CSV staging importer + tests | Permitted exports; tournament, game and player fields where present |
 
 ## League of Legends — Games of Legends (Gol.gg)
 
