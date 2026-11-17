@@ -5,7 +5,7 @@ Independent public repository for historical esports match data and analytics.
 ## Scope
 
 - **VALORANT**: primary discovery source is [VLR.gg](https://www.vlr.gg/); an unofficial adapter is being evaluated. Riot/GRID Open Access may be suitable for a non-commercial academic project, but excludes betting/gambling use.
-- **League of Legends**: ChainCC CC BY 4.0 2025–2026 player-game and team-game CSVs are imported as a secondary source; Gol.gg remains the intended primary reference. Riot/GRID Open Access is intended for students/researchers and non-commercial experimentation, but excludes betting/gambling use regardless of whether the project earns money.
+- **League of Legends**: ChainCC CC BY 4.0 2025–2026 player-game and team-game CSVs are imported as a secondary source; Gol.gg remains the intended primary reference. Riot/GRID Open Access is available to students/researchers for non-commercial experimentation. Eligibility depends on actual functionality: bookmaker odds/lines, wager-oriented picks or bet-placement links may count as betting/gambling use and are excluded even for free academic projects.
 - **Counter-Strike 2**: HLTV is a reference source only. HLTV Terms §2.2 prohibits scraping; obtain permission/licensed data or use a separately licensed alternative dataset.
 - Historical window: **2025-01-01 through 2026-12-31** (inclusive).
 
