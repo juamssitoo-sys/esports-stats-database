@@ -19,7 +19,7 @@ import psycopg
 from dotenv import load_dotenv
 
 SOURCE_SLUG = "vlr-gg"
-PARSER_VERSION = "0.1.0"
+PARSER_VERSION = "0.2.0"
 GAME_SLUG = "valorant"
 
 
@@ -58,6 +58,37 @@ def extract_segments(payload: Any) -> list[dict[str, Any]]:
     raise ValueError("Unrecognized results payload: expected data.segments / data.matches / data.results")
 
 
+
+def parse_match_date(match: dict[str, Any]) -> date | None:
+    """Parse VLR list dates without silently dropping human-readable dates."""
+    candidates = (match.get("date"), match.get("unix_timestamp"), match.get("date_time"))
+    formats = ("%Y-%m-%d", "%Y/%m/%d", "%Y-%m-%d %H:%M:%S", "%B %d, %Y", "%b %d, %Y")
+    for candidate in candidates:
+        if not isinstance(candidate, str) or not candidate.strip():
+            continue
+        value = candidate.strip()
+        for fmt in formats:
+            try:
+                return datetime.strptime(value[:19], fmt).date()
+            except ValueError:
+                continue
+        try:
+            return datetime.fromisoformat(value.replace("Z", "+00:00")).date()
+        except ValueError:
+            pass
+    return None
+
+
+def extract_detail(payload: Any) -> dict[str, Any]:
+    data = unwrap(payload)
+    if isinstance(data, dict):
+        segments = data.get("segments")
+        if isinstance(segments, list) and segments and isinstance(segments[0], dict):
+            return segments[0]
+        return data
+    raise ValueError("Unrecognized match detail payload")
+
+
 def get_source_ids(conn: psycopg.Connection) -> tuple[int, int]:
     row = conn.execute("SELECT id FROM sources WHERE slug=%s", (SOURCE_SLUG,)).fetchone()
     game = conn.execute("SELECT id FROM games WHERE slug=%s", (GAME_SLUG,)).fetchone()
@@ -89,7 +120,7 @@ def main() -> None:
     if not base:
         raise SystemExit("Set VLR_API_BASE_URL in .env to your self-hosted VLR-compatible API.")
     timeout = float(os.getenv("REQUEST_TIMEOUT_SECONDS", "30"))
-    delay = float(os.getenv("REQUEST_DELAY_SECONDS", "1.5"))
+    delay = float(os.getenv("REQUEST_DELAY_SECONDS", "3.2"))
     user_agent = os.getenv("USER_AGENT", "EsportsStatsDatabase/0.1")
     db_url = os.getenv("DATABASE_URL")
     if not args.dry_run and not db_url:
@@ -114,27 +145,26 @@ def main() -> None:
                 if not matches:
                     break
                 for match in matches:
-                    match_date = match.get("date") or match.get("unix_timestamp")
-                    # Keep records with unknown dates for audit; filter only parseable dates.
-                    parsed_date = None
-                    if isinstance(match_date, str):
-                        for fmt in ("%Y/%m/%d", "%Y-%m-%d"):
-                            try:
-                                parsed_date = datetime.strptime(match_date[:10], fmt).date()
-                                break
-                            except ValueError:
-                                pass
+                    parsed_date = parse_match_date(match)
                     if parsed_date is None or not (args.date_from <= parsed_date <= args.date_to):
                         continue
                     source_id = str(match.get("id") or match.get("match_id") or "") or None
                     source_url = match.get("url") or match.get("match_page")
+                    if not source_id:
+                        continue
+                    detail_url = f"{base}/v2/match/{source_id}/details"
+                    detail_payload = request_json(client, detail_url, params={"include": "event,date,status,teams,maps,performance,economy"})
+                    detail = extract_detail(detail_payload)
                     if args.dry_run:
-                        print(json.dumps({"source_id": source_id, "date": match_date, "url": source_url}, ensure_ascii=False))
+                        print(json.dumps({"source_id": source_id, "date": parsed_date.isoformat(),
+                                          "url": source_url, "maps": len(detail.get("maps", []))}, ensure_ascii=False))
                     else:
                         assert conn_context is not None
                         assert source_db_id is not None and game_db_id is not None
                         store_payload(conn_context, source_db_id, game_db_id, "match_result", source_id, source_url, match)
+                        store_payload(conn_context, source_db_id, game_db_id, "match_details", source_id, detail_url, detail)
                     count += 1
+                    time.sleep(delay)
                 if not args.dry_run and conn_context:
                     conn_context.commit()
                 time.sleep(delay)
