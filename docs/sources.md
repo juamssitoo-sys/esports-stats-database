@@ -5,7 +5,7 @@
 | VALORANT | https://www.vlr.gg/ | Adapter scaffold | Matches, maps, player stats |
 | Counter-Strike 2 | https://www.hltv.org/ | Source specification added | Events, matches, maps, player stats |
 | League of Legends | https://gol.gg/esports/home/ | Primary reference; pending validation | Tournament, game, draft and player statistics |
-| League of Legends (secondary) | https://chaincc.lol/free/data/ | CC BY 4.0 dataset + downloader | Player-game and team-game CSVs for 2025–2026; separate provenance |
+| League of Legends (secondary) | https://chaincc.lol/free/data/ | Imported successfully; GitHub Actions artifact | 199,830 player-game + 39,966 team-game rows; 2026 is year-to-date; separate provenance |
 
 ## League of Legends — Games of Legends (Gol.gg)
 
