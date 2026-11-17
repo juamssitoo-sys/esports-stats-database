@@ -39,9 +39,15 @@ HLTV Terms of Service (effective 2025-01-27), section 2.2, explicitly prohibits 
 
 For CS2 historical match-level data, evaluate alternative sources whose redistribution rights and 2025–2026 match-level coverage can be verified (for example, properly licensed demo/stat datasets or direct tournament data releases). Do not assume a GitHub repository's code license also licenses its third-party data.
 
-## VALORANT — VLR adapter status
+## VALORANT — VLR.gg restriction (blocking)
 
-The project has identified https://github.com/axsddlr/vlrggapi as a self-hostable, unofficial VLR adapter. Its hosted public instance is reported down in its README; it must be self-hosted and tested with a small sample before any bulk backfill. This is not an official Riot or VLR API. Follow VLR's current terms, rate limits and access restrictions; no anti-bot or access-control bypass is allowed.
+VLR.gg Terms of Service, last updated 2025-09-16: https://www.vlr.gg/terms
+
+The current terms prohibit automated/non-human access, data mining/scraping, systematically retrieving content to build a database without written permission, and commercial exploitation without express prior written permission. This directly affects the proposed FijasPro betting-oriented use case.
+
+Therefore VLR.gg is a **reference/discovery source only** for this project unless VLR.gg grants written permission covering both automated collection and the intended downstream commercial/betting use. Do not run the VLR adapter or bulk backfill before that permission is obtained. The unofficial `axsddlr/vlrggapi` project is a scraper adapter, not an official API; its MIT code licence does not grant rights to VLR content.
+
+The collector now includes an explicit permission confirmation guard, but that flag is an operator attestation, not proof of permission. Do not use it unless written permission has actually been obtained.
 
 
 ## Riot Games Open Access powered by GRID — important restriction
