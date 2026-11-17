@@ -57,7 +57,7 @@ Then remove `--dry-run` to persist the raw source payloads. The collector intent
 
 ## Source notes
 
-VLR.gg is a community esports statistics website, not an official Riot Games API. The project can use a compatible self-hosted adapter such as [axsddlr/vlrggapi](https://github.com/axsddlr/vlrggapi), subject to its own license and VLR.gg's terms. Check its current API documentation before running bulk imports.
+VLR.gg is a community esports statistics website, not an official Riot Games API. The project can use a compatible self-hosted adapter such as [axsddlr/vlrggapi](https://github.com/axsddlr/vlrggapi), subject to VLR.gg's written permission. Do not run automated collection or bulk imports without written permission covering the intended commercial use.
 
 ## Current status
 
@@ -65,7 +65,7 @@ VLR.gg is a community esports statistics website, not an official Riot Games API
 - [x] Historical window defined (2025–2026)
 - [x] Initial PostgreSQL schema
 - [x] VALORANT ingestion scaffold
-- [ ] Self-host and validate the VLR adapter; backfill 2025–2026 where permitted
+- [ ] Obtain VLR.gg written permission for automated collection and FijasPro commercial/betting use before any VALORANT backfill
 - [x] Import ChainCC LoL 2025–2026 CSV artifact (secondary source; not yet loaded into PostgreSQL)
 - [ ] Validate Gol.gg access and reconcile LoL match records
 - [ ] Obtain a GRID commercial licence before any FijasPro use of official Riot/GRID esports feeds (free Open Access explicitly excludes betting/gambling use)
