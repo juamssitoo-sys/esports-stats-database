@@ -1,5 +1,8 @@
 name: Acquire VALORANT historical dataset
 on:
+  push:
+    paths:
+      - '.github/workflows/acquire-valorant-vct-reference.yml'
   workflow_dispatch:
   schedule:
     - cron: "20 6 * * 1"
