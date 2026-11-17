@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export const revalidate = 3600;
+export const revalidate = 43200;
 const BASE = "https://api.citoapi.com/api/v1";
 
 type Row = Record<string, any>;
@@ -10,7 +10,7 @@ async function cito(path: string) {
   if (!key) throw new Error("Falta configurar CITO_API_KEY en el entorno de Vercel.");
   const response = await fetch(`${BASE}${path}`, {
     headers: { "x-api-key": key, accept: "application/json" },
-    next: { revalidate: 3600 },
+    next: { revalidate: 43200 },
   });
   if (!response.ok) {
     const detail = await response.text().catch(() => "");
