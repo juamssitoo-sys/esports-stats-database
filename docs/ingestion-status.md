@@ -38,7 +38,7 @@ Files produced:
 
 Important identity limitation: ChainCC's CSV does not expose a stable player ID, legal/real name or country. The generated `player_id` values are deterministic project keys derived from normalized handles, **not authoritative identities**. Same-handle players may collide; no cross-source merge by handle alone is permitted. Team date ranges mean first/last observed game only, not contract/official roster dates. 4,082 is a count of provisional source-handle identities, not a verified count of unique human players.
 
-A reproducible standard-library builder was committed at `scripts/build_lol_player_master.py`; GitHub Actions workflow `Build LoL player master` downloads the current ChainCC player CSVs, rebuilds, validates and publishes a 90-day artifact. This workflow's first run must be checked before calling the automated pipeline verified.
+A reproducible standard-library builder was committed at `scripts/build_lol_player_master.py`; GitHub Actions workflow `Build LoL player master` downloads the validated ChainCC source artifact, rebuilds, validates and publishes a 90-day artifact. First automated run succeeded on 2026-11-17 13:07 UTC: https://github.com/juamssitoo-sys/esports-stats-database/actions/runs/44089613688. Output artifact: https://github.com/juamssitoo-sys/esports-stats-database/actions/runs/44089613688/artifacts/14331655507 (artifact ID 14331655507; expires 2027-02-15).
 
 ## VALORANT source decision
 
