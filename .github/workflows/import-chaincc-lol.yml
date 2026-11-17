@@ -1,0 +1,40 @@
+name: Import ChainCC LoL 2025-2026 dataset
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/download_chaincc_lol.py"
+      - "tests/test_chaincc_import.py"
+      - ".github/workflows/import-chaincc-lol.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "17 7 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  download-and-validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run importer tests
+        run: python -m unittest tests.test_chaincc_import -v
+      - name: Download and filter 2025-2026 source files
+        run: python scripts/download_chaincc_lol.py
+      - name: Upload source and curated data
+        uses: actions/upload-artifact@v4
+        with:
+          name: chaincc-lol-2025-2026
+          path: |
+            data/raw/chaincc/
+            data/curated/lol/chaincc/
+          if-no-files-found: error
+          retention-days: 90
