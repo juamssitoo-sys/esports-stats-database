@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - '.github/workflows/acquire-valorant-vct-reference.yml'
+      - 'scripts/build_valorant_sqlite.py'
   workflow_dispatch:
   schedule:
     - cron: "20 6 * * 1"
@@ -26,7 +27,7 @@ jobs:
           test "$(stat -c%s data/raw/valorant/vct-reference/vct.duckdb)" -gt 1000000
       - name: Inspect source schema and coverage
         run: |
-          pip install duckdb
+          pip install duckdb pandas
           python - <<'PY'
           import duckdb, json, os
           path='data/raw/valorant/vct-reference/vct.duckdb'
@@ -43,8 +44,10 @@ jobs:
           assert any(t["name"]=="matches" for t in report["tables"])
           assert any(t["name"]=="player_map" for t in report["tables"])
           PY
+      - name: Build 2025-2026 SQLite and CSV release
+        run: python scripts/build_valorant_sqlite.py --source data/raw/valorant/vct-reference/vct.duckdb --out data/curated/valorant/vct_reference
       - uses: actions/upload-artifact@v4
         with:
-          name: valorant-vct-reference-source
-          path: data/raw/valorant/vct-reference/
+          name: valorant-vct-reference-2025-2026
+          path: data/curated/valorant/vct_reference/
           retention-days: 90
