@@ -28,7 +28,7 @@ export default function Home(){
  const lolTeams=data?.lol.teams??[],lolPlayers=data?.lol.players??[];
  const filteredLolTeams=lolTeams.filter(t=>!search||t.name.toLowerCase().includes(search.toLowerCase()));
  const filteredLolPlayers=lolPlayers.filter(p=>{const q=search.toLowerCase(),teamOk=!selectedTeam||p.teams?.includes(selectedTeam.name);return teamOk&&(!q||p.handle.toLowerCase().includes(q)||p.teams?.some((t:string)=>t.toLowerCase().includes(q)));});
- const changeGame=(id:'valorant'|'lol'|'cs2')=>{setGame(id);setSearch('');setMapFilter('Todos');setRegion('Todas');setSelectedTeam(null);};
+ const changeGame=(id:'valorant'|'lol'|'cs2')=>{if(id==='cs2'){window.location.href='/cs2';return;}setGame(id);setSearch('');setMapFilter('Todos');setRegion('Todas');setSelectedTeam(null);};
 
  return <main className="app-shell">
   <aside className="sidebar">
