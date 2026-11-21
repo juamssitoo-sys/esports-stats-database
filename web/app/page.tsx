@@ -42,7 +42,14 @@ export default function Home(){
   <section className="main-area">
    <header className="topbar"><div className="breadcrumb">CENTRO DE DATOS <ChevronRight size={13}/><b>{games.find(g=>g.id===game)?.label}</b></div><div className="topbar-right"><span className="data-status"><i/> DATOS CON FUENTE</span><div className="avatar">EA</div></div></header>
    <div className="content">
-    <div className="page-heading"><div><div className="eyebrow">COMPETITIVE INTELLIGENCE / {game.toUpperCase()}</div><h1>{game==='valorant'?'VALORANT':game==='lol'?'League of Legends':'Counter-Strike 2'} <span>Stats</span></h1><p>Explora mapas, equipos, jugadores y rendimiento competitivo.</p></div><div className="period-badge"><span>PERIODO</span><b>2025 — 2026</b></div></div>
+    {game==='valorant'?<div className="valorant-command-hero">
+     <div className="vch-topline"><span><i/> VCT // INTELLIGENCE DIVISION</span><span>PROTOCOLO 07 <b>● EN LÍNEA</b></span></div>
+     <div className="vch-main">
+      <div className="vch-copy"><div className="eyebrow">COMPETITIVE OPERATIONS · 2025—2026</div><h1>EL CAMPO<br/><span>DE DATOS.</span></h1><p>Analiza el meta. Domina los mapas. Estudia a cada equipo.</p><div className="vch-actions"><span className="vch-period">TEMPORADA <b>2025 — 2026</b></span><span className="vch-source">VCT REFERENCE DATABASE</span></div></div>
+      <div className="vch-visual" aria-hidden="true"><div className="vch-orbit vch-orbit-one"/><div className="vch-orbit vch-orbit-two"/><div className="vch-reticle"><i/><b>V</b><span>VALORANT</span></div><div className="vch-coordinate">35° 41' 22.4"N<br/>139° 41' 30.1"E</div><div className="vch-vertical">TACTICAL COMBAT // EPISODE 09</div><div className="vch-side-index">07</div></div>
+     </div>
+     <div className="vch-bottomline"><span>PRECISION IS THE DIFFERENCE</span><span>SELECT · ANALYZE · EXECUTE</span><span>EST. 2020 / VCT</span></div>
+    </div>:<div className="page-heading"><div><div className="eyebrow">COMPETITIVE INTELLIGENCE / {game.toUpperCase()}</div><h1>{game==='lol'?'League of Legends':'Counter-Strike 2'} <span>Stats</span></h1><p>Explora mapas, equipos, jugadores y rendimiento competitivo.</p></div><div className="period-badge"><span>PERIODO</span><b>2025 — 2026</b></div></div>}
     <div className="game-switch">{games.map(g=><button key={g.id} className={game===g.id?'selected':''} onClick={()=>changeGame(g.id)}><span className={'switch-dot '+g.color}/>{g.label}</button>)}</div>
     {loading?<div className="loading"><div className="loader"/><span>Cargando base estadística...</span></div>:!data?<div className="empty-state"><Activity/><h2>No se pudo cargar la base de datos</h2><p>Verifica que el archivo de estadísticas esté publicado.</p></div>:<>
      {game==='valorant'&&<>
