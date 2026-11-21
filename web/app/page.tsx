@@ -16,7 +16,7 @@ const mapArtwork:Record<string,string> = {
  Corrode:'https://c-valorant-api.op.gg/Assets/Maps/1C18AB1F-420D-0D8B-71D0-77AD3C439115_splash.png?image=q_auto%3Agood%2Cf_webp&v=1771503167',
  Fracture:'https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/881eda9ac7e56cb18efff9759ac6b2ba5b232a56-1920x1080.jpg?auto=format&fit=fill&q=80&w=1920',
  Summit:'https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/ff7f89ff681da27cfec24bf61986c23fb2aba543-1920x1080.jpg',
- Abyss:'https://images.everyeye.it/img-notizie/valorant-update-gratis-mappa-abyss-arrivato-novitA-v4-723013.jpg',
+ Abyss:'https://media.valorant-api.com/maps/224b0a95-48b9-f703-1bd8-67aca101a61f/splash.png',
  Bind:'https://assets-global.website-files.com/5c1bb997cb1dd611a0e6c8ce/5fb57df14ad8ff6a6a085432_WestStudio-Valorant-84.jpg',
  default:'https://media.valorant-api.com/maps/2fe4ed3a-450a-948b-6d6b-e89a78e680a9/splash.png'
 };
