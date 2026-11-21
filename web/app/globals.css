@@ -551,3 +551,146 @@ body{
  .valorant-theme .page-heading h1{font-size:30px}
  .valorant-theme .nav-game.active{box-shadow:inset 0 -2px 0 #ff4655}
 }
+
+/* VALORANT immersion pass — tactical HUD atmosphere, preserving data layout */
+.valorant-theme{
+  background-color:#09090c;
+  background-image:
+    radial-gradient(ellipse at 78% 8%,#ff465510 0,transparent 34%),
+    radial-gradient(ellipse at 8% 92%,#ff465508 0,transparent 30%);
+}
+.valorant-theme .content{
+  background-image:
+    linear-gradient(115deg,transparent 0 73%,#ff465505 73.1% 73.3%,transparent 73.4%),
+    repeating-linear-gradient(135deg,transparent 0 34px,#ffffff04 35px,#ffffff04 36px,transparent 37px 70px);
+  background-position:top right;
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+}
+.valorant-theme .sidebar{
+  background-image:
+    linear-gradient(180deg,#191316 0%,#101014 42%,#09090c 100%),
+    repeating-linear-gradient(0deg,transparent 0 42px,#ffffff04 43px);
+}
+.valorant-theme .brand-mark{
+  background:linear-gradient(145deg,#ff6975,#d92c3d);
+  box-shadow:0 0 0 5px #ff465510,0 0 34px #ff465555;
+}
+.valorant-theme .brand b{
+  text-shadow:0 0 22px #ff465522;
+}
+.valorant-theme .nav-game.active{
+  background:linear-gradient(100deg,#ff46552b 0%,#ff46550e 68%,transparent 100%);
+  box-shadow:inset 3px 0 0 #ff4655,0 0 24px #ff465510;
+}
+.valorant-theme .page-heading{
+  background:
+    linear-gradient(115deg,transparent 0 62%,#ff46550a 62.1% 62.3%,transparent 62.4%),
+    repeating-linear-gradient(135deg,transparent 0 18px,#ffffff05 19px,#ffffff05 20px,transparent 21px 38px),
+    radial-gradient(ellipse at 86% 42%,#ff46551b 0,transparent 38%),
+    linear-gradient(110deg,#251318 0%,#171317 47%,#0d0e12 100%);
+  box-shadow:0 18px 48px #0009,inset 4px 0 0 #ff4655,inset 0 1px 0 #ffffff12;
+}
+.valorant-theme .page-heading:after{
+  width:250px;height:250px;right:6%;top:-82px;
+  border:1px solid #ff46554a;
+  border-radius:50%;
+  background:
+    linear-gradient(90deg,transparent 49.7%,#ff465526 50%,transparent 50.3%),
+    linear-gradient(0deg,transparent 49.7%,#ff465526 50%,transparent 50.3%),
+    radial-gradient(circle,transparent 0 29%,#ff46551b 29.5% 30%,transparent 30.5% 58%,#ff46551b 58.5% 59%,transparent 59.5%);
+  box-shadow:0 0 0 22px #ff465508,0 0 0 48px #ff465505;
+}
+.valorant-theme .page-heading:before{
+  content:"VCT  //  COMPETITIVE DATA  //  EST. 2021";
+  color:#ff7d87;
+  text-shadow:0 0 14px #ff465555;
+}
+.valorant-theme .page-heading .eyebrow{
+  text-shadow:0 0 18px #ff465566;
+}
+.valorant-theme .page-heading h1{
+  text-shadow:0 5px 30px #0009;
+}
+.valorant-theme .period-badge{
+  background:linear-gradient(135deg,#2b171d,#171216);
+  box-shadow:inset 0 1px 0 #ffffff0b,0 8px 24px #0004;
+}
+.valorant-theme .metric-card{
+  background:
+    linear-gradient(135deg,#ff46550b,transparent 46%),
+    linear-gradient(145deg,#222024,#131317 82%);
+  box-shadow:0 12px 30px #0006,inset 0 1px 0 #ffffff0b;
+}
+.valorant-theme .metric-card:before{
+  background:radial-gradient(circle,#ff46551b 0,transparent 68%);
+}
+.valorant-theme .metric-card:after{
+  background:linear-gradient(90deg,#ff4655 0%,#ff8a92 44%,transparent 100%);
+  box-shadow:0 0 12px #ff465544;
+}
+.valorant-theme .metric-top i{
+  filter:drop-shadow(0 0 7px #ff465566);
+}
+.valorant-theme .coverage-banner{
+  background:
+    linear-gradient(100deg,#35171e 0%,#201419 48%,#141317 100%);
+  box-shadow:inset 3px 0 0 #ff4655,0 10px 26px #0004;
+}
+.valorant-theme .section-title h2{
+  text-shadow:0 3px 18px #0008;
+}
+.valorant-theme .section-title h2:before{
+  content:"";
+  display:inline-block;
+  width:4px;height:20px;
+  margin:0 11px 0 0;
+  vertical-align:-3px;
+  background:linear-gradient(180deg,#ff7b85,#ff4655);
+  box-shadow:0 0 12px #ff465566;
+}
+.valorant-theme .map-card{
+  background:
+    linear-gradient(145deg,#ff465509,transparent 48%),
+    linear-gradient(160deg,#1c191d,#111115);
+  box-shadow:0 10px 28px #0006,inset 0 1px 0 #ffffff08;
+}
+.valorant-theme .map-card:hover,
+.valorant-theme .map-card.map-active{
+  box-shadow:0 0 0 1px #ff465566,0 0 28px #ff46551c,0 16px 38px #0009;
+}
+.valorant-theme .map-art{
+  background-image:
+    linear-gradient(135deg,transparent 0 47%,#ff46551a 47.2% 47.7%,transparent 48%),
+    repeating-linear-gradient(135deg,transparent 0 22px,#ffffff08 23px,#ffffff08 24px,transparent 25px 46px);
+}
+.valorant-theme .map-art span{
+  text-shadow:0 0 16px #ff465566;
+}
+.valorant-theme .map-card-bottom{
+  background:linear-gradient(90deg,#191519,#111115);
+}
+.valorant-theme .team-table-wrap,
+.valorant-theme .player-table-wrap,
+.valorant-theme .player-list{
+  box-shadow:0 14px 34px #0007,inset 0 1px 0 #ffffff08;
+}
+.valorant-theme .team-table th,
+.valorant-theme .player-table th{
+  background:linear-gradient(90deg,#2a1c21,#21191d);
+}
+.valorant-theme .detail-panel{
+  background:
+    radial-gradient(ellipse at 100% 0%,#ff46551b,transparent 45%),
+    linear-gradient(160deg,#21171c,#101014 75%);
+  box-shadow:-20px 0 70px #0009,inset 1px 0 0 #ff46551a;
+}
+.valorant-theme .detail-kpis div{
+  box-shadow:inset 0 1px 0 #ffffff0b,0 8px 20px #0004;
+}
+.valorant-theme .close-btn{
+  box-shadow:0 0 14px #ff465514;
+}
+.valorant-theme .page-footer{
+  color:#91888d;
+}
