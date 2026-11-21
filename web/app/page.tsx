@@ -4,6 +4,22 @@ import { Activity, ChevronDown, ChevronRight, Crosshair, Gamepad2, Globe2, Searc
 
 type AnyRow = Record<string, any>;
 type Dataset = { meta: AnyRow; valorant: { maps: AnyRow[]; teams: AnyRow[] }; lol: { players: AnyRow[]; teams: AnyRow[] }; cs2: { maps: AnyRow[]; teams: AnyRow[]; players: AnyRow[] } };
+const mapArtwork:Record<string,string> = {
+ Lotus:'https://media.valorant-api.com/maps/2fe4ed3a-450a-948b-6d6b-e89a78e680a9/splash.png',
+ Ascent:'https://media.valorant-api.com/maps/7eaecc1b-4337-bbf6-6ab9-04b8f06b3319/splash.png',
+ Icebox:'https://media.valorant-api.com/maps/e2ad5c54-4114-a870-9641-8ea21279579a/splash.png',
+ Pearl:'https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/824602886bfdcfc19d0858e16bcf953dbd15946c-1920x1080.jpg',
+ Split:'https://wallpaperaccess.com/full/6192324.jpg',
+ Haven:'https://liquipedia.net/commons/images/7/73/Haven_Map.png',
+ Sunset:'https://imgoss.suozhang.cn/maps/92584fbe-486a-b1b2-9faa-39b0f486b498/splash.png',
+ Breeze:'https://media.dexerto.com/media/valorant-map-breeze-splash.png?format=auto&quality=75&width=768',
+ Corrode:'https://c-valorant-api.op.gg/Assets/Maps/1C18AB1F-420D-0D8B-71D0-77AD3C439115_splash.png?image=q_auto%3Agood%2Cf_webp&v=1771503167',
+ Fracture:'https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/881eda9ac7e56cb18efff9759ac6b2ba5b232a56-1920x1080.jpg?auto=format&fit=fill&q=80&w=1920',
+ Summit:'https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/ff7f89ff681da27cfec24bf61986c23fb2aba543-1920x1080.jpg',
+ Abyss:'https://images.everyeye.it/img-notizie/valorant-update-gratis-mappa-abyss-arrivato-novitA-v4-723013.jpg',
+ Bind:'https://assets-global.website-files.com/5c1bb997cb1dd611a0e6c8ce/5fb57df14ad8ff6a6a085432_WestStudio-Valorant-84.jpg',
+ default:'https://media.valorant-api.com/maps/2fe4ed3a-450a-948b-6d6b-e89a78e680a9/splash.png'
+};
 const games = [
  {id:'valorant',label:'VALORANT',color:'red',icon:Crosshair},
  {id:'lol',label:'LEAGUE OF LEGENDS',color:'gold',icon:Shield},
@@ -62,7 +78,7 @@ export default function Home(){
       <div className="coverage-banner"><div className="coverage-icon"><Activity size={17}/></div><div><b>Alcance de los datos</b><span>{data.meta.valorant.coverage}</span></div><span className="source-tag">VCT REFERENCE</span></div>
       <section className="section-block">
        <div className="section-title"><div><div className="eyebrow">MAP POOL</div><h2>Estadísticas por mapa</h2><p>Selecciona un mapa para filtrar el rendimiento de los equipos.</p></div><span className="section-count">{vMaps.length} MAPAS</span></div>
-       <div className="map-grid">{vMaps.map((m:AnyRow,i:number)=><button key={m.name} onClick={()=>setMapFilter(mapFilter===m.name?'Todos':m.name)} className={'map-card '+(mapFilter===m.name?'map-active':'')}><div className={'map-art map-art-'+(i%6)}><span>MAP {String(i+1).padStart(2,'0')}</span><b>{m.name.toUpperCase()}</b><small>{m.games.toLocaleString('es-PE')} PARTIDAS</small></div><div className="map-card-bottom"><span>Más victorias</span><b>{m.teams?.[0]?.team??'—'}</b><strong>{m.teams?.[0]?.wins??0} <small>W</small></strong></div></button>)}</div>
+       <div className="map-grid">{vMaps.map((m:AnyRow,i:number)=><button key={m.name} onClick={()=>setMapFilter(mapFilter===m.name?'Todos':m.name)} className={'map-card '+(mapFilter===m.name?'map-active':'')}><div className={'map-art map-art-'+(i%6)}><img className="map-art-image" src={mapArtwork[m.name]??mapArtwork.default} alt={`Arte oficial del mapa ${m.name}`} loading="lazy" decoding="async"/><span>MAP {String(i+1).padStart(2,'0')}</span><b>{m.name.toUpperCase()}</b><small>{m.games.toLocaleString('es-PE')} PARTIDAS</small></div><div className="map-card-bottom"><span>Más victorias</span><b>{m.teams?.[0]?.team??'—'}</b><strong>{m.teams?.[0]?.wins??0} <small>W</small></strong></div></button>)}</div>
        {mapFilter!=='Todos'&&<button className="clear-filter" onClick={()=>setMapFilter('Todos')}><X size={13}/> Quitar filtro: {mapFilter}</button>}
       </section>
       <section className="section-block">
