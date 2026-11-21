@@ -10,7 +10,7 @@ const mapArtwork:Record<string,string> = {
  Icebox:'https://media.valorant-api.com/maps/e2ad5c54-4114-a870-9641-8ea21279579a/splash.png',
  Pearl:'https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/824602886bfdcfc19d0858e16bcf953dbd15946c-1920x1080.jpg',
  Split:'https://wallpaperaccess.com/full/6192324.jpg',
- Haven:'https://liquipedia.net/commons/images/7/73/Haven_Map.png',
+ Haven:'https://media.valorant-api.com/maps/2bee0dc9-4ffe-519b-1cbd-7fbe763a6047/splash.png',
  Sunset:'https://imgoss.suozhang.cn/maps/92584fbe-486a-b1b2-9faa-39b0f486b498/splash.png',
  Breeze:'https://media.dexerto.com/media/valorant-map-breeze-splash.png?format=auto&quality=75&width=768',
  Corrode:'https://c-valorant-api.op.gg/Assets/Maps/1C18AB1F-420D-0D8B-71D0-77AD3C439115_splash.png?image=q_auto%3Agood%2Cf_webp&v=1771503167',
