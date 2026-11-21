@@ -1028,3 +1028,61 @@ body{
   .valorant-theme .page-heading:before{font-size:70px;right:-30px}
   .valorant-theme .map-art{height:105px}
 }
+
+
+/* VALORANT command-center hero: distinct game identity, isolated from other titles */
+.valorant-theme .valorant-command-hero{
+  position:relative;isolation:isolate;overflow:hidden;margin:0 0 22px;min-height:390px;
+  padding:19px 28px 0;border:1px solid #71303a;border-top:2px solid #ff4655;
+  background:
+    linear-gradient(90deg,#100d12 0%,#1d1017 48%,#100d12 100%);
+  box-shadow:0 24px 70px #000b,inset 0 0 90px #ff46550b;
+}
+.valorant-theme .valorant-command-hero:before{
+  content:"";position:absolute;z-index:-1;inset:0;opacity:.8;
+  background:
+   linear-gradient(115deg,transparent 0 54%,#ff46551a 54.1% 54.5%,transparent 54.6%),
+   repeating-linear-gradient(135deg,transparent 0 34px,#ffffff08 35px,#ffffff08 36px,transparent 37px 68px),
+   radial-gradient(ellipse at 77% 45%,#e52c4330 0,transparent 42%);
+}
+.valorant-theme .vch-topline,.valorant-theme .vch-bottomline{
+ display:flex;justify-content:space-between;align-items:center;gap:12px;
+ color:#a98d94;font:10px 'DM Mono';letter-spacing:1.4px;
+}
+.valorant-theme .vch-topline{height:28px;border-bottom:1px solid #ffffff16}
+.valorant-theme .vch-topline i{display:inline-block;width:7px;height:7px;margin-right:8px;border-radius:50%;background:#ff4655;box-shadow:0 0 13px #ff4655}
+.valorant-theme .vch-topline b{color:#ff6976;font-weight:500;margin-left:8px}
+.valorant-theme .vch-main{display:grid;grid-template-columns:1fr minmax(300px,43%);min-height:295px;align-items:center}
+.valorant-theme .vch-copy{position:relative;z-index:2;padding:34px 0}
+.valorant-theme .vch-copy .eyebrow{color:#ff6875;letter-spacing:2.5px}
+.valorant-theme .vch-copy h1{font:800 clamp(48px,6.1vw,88px)/.83 'Space Grotesk',sans-serif;letter-spacing:-5px;color:#fff;margin:22px 0 20px;text-transform:uppercase}
+.valorant-theme .vch-copy h1 span{color:#ff4655;text-shadow:0 0 35px #ff465544}
+.valorant-theme .vch-copy p{color:#d0c0c5;font-size:13px;letter-spacing:.25px}
+.valorant-theme .vch-actions{display:flex;align-items:center;gap:22px;margin-top:28px}
+.valorant-theme .vch-period{padding:10px 13px;border:1px solid #763642;background:#1b1117;color:#a98d94;font:10px 'DM Mono';letter-spacing:1px}
+.valorant-theme .vch-period b{color:#fff;margin-left:9px}
+.valorant-theme .vch-source{color:#ff8b95;font:9px 'DM Mono';letter-spacing:1.5px}
+.valorant-theme .vch-visual{height:270px;position:relative;display:grid;place-items:center;overflow:hidden}
+.valorant-theme .vch-visual:before,.valorant-theme .vch-visual:after{content:"";position:absolute;width:220px;height:220px;border:1px solid #ff46554d;transform:rotate(45deg);box-shadow:0 0 0 18px #ff465508,0 0 0 38px #ff465506,0 0 60px #ff46551a}
+.valorant-theme .vch-visual:after{width:155px;height:155px;border-color:#ffffff26;transform:rotate(0deg)}
+.valorant-theme .vch-orbit{position:absolute;border:1px solid #ff46553a;border-radius:50%;transform:rotate(-24deg)}
+.valorant-theme .vch-orbit-one{width:330px;height:160px}
+.valorant-theme .vch-orbit-two{width:260px;height:260px;border-style:dashed;opacity:.6}
+.valorant-theme .vch-reticle{width:160px;height:160px;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;clip-path:polygon(50% 0,92% 22%,100% 50%,78% 92%,50% 100%,8% 78%,0 50%,22% 8%);background:linear-gradient(145deg,#ff46552c,#100d12 68%);border:1px solid #ff4655;filter:drop-shadow(0 0 20px #ff465544)}
+.valorant-theme .vch-reticle:before{content:"";position:absolute;inset:9px;border:1px solid #ff929b66;clip-path:inherit}
+.valorant-theme .vch-reticle i{width:32px;height:2px;background:#ff4655;box-shadow:0 0 12px #ff4655}
+.valorant-theme .vch-reticle b{font:800 82px/.9 'Space Grotesk';color:#fff;text-shadow:0 0 30px #ff465577}
+.valorant-theme .vch-reticle span{font:8px 'DM Mono';letter-spacing:2px;color:#ff9da5}
+.valorant-theme .vch-coordinate{position:absolute;left:0;bottom:17px;color:#9d737b;font:9px/1.6 'DM Mono';letter-spacing:1px}
+.valorant-theme .vch-vertical{position:absolute;right:4px;top:22px;writing-mode:vertical-rl;color:#9d737b;font:8px 'DM Mono';letter-spacing:2px}
+.valorant-theme .vch-side-index{position:absolute;right:8px;bottom:0;color:#ffffff0b;font:900 84px/.8 'Space Grotesk'}
+.valorant-theme .vch-bottomline{height:42px;border-top:1px solid #ffffff16;color:#8b7379;font-size:8px}
+@media(max-width:760px){
+ .valorant-theme .valorant-command-hero{min-height:0;padding:14px 17px 0}
+ .valorant-theme .vch-main{grid-template-columns:1fr;min-height:0}
+ .valorant-theme .vch-copy{padding:30px 0 8px}
+ .valorant-theme .vch-copy h1{font-size:54px;letter-spacing:-3px}
+ .valorant-theme .vch-visual{height:210px}
+ .valorant-theme .vch-bottomline{font-size:7px;letter-spacing:.5px}
+ .valorant-theme .vch-actions{flex-wrap:wrap}
+}
