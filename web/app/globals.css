@@ -694,3 +694,337 @@ body{
 .valorant-theme .page-footer{
   color:#91888d;
 }
+
+/* VALORANT: full game-inspired entry experience (scoped; data and behavior unchanged) */
+.valorant-theme{
+  --accent:#ff4655;
+  --accent-cyan:#ff6673;
+  background:#08090c;
+  color:#f7f4f5;
+  isolation:isolate;
+}
+.valorant-theme .main-area{
+  background:
+    radial-gradient(ellipse at 78% 4%,#9f1d2b20 0,transparent 33%),
+    linear-gradient(180deg,#0b0b0f 0%,#09090c 65%,#0d0b0e 100%);
+}
+.valorant-theme .content{
+  max-width:none;
+  padding:28px clamp(22px,3.1vw,52px) 30px;
+  background:
+    linear-gradient(90deg,transparent 0 96%,#ff46550c 96.1% 96.25%,transparent 96.35%),
+    repeating-linear-gradient(135deg,transparent 0 62px,#ffffff03 63px,#ffffff03 64px,transparent 65px 126px);
+}
+.valorant-theme .sidebar{
+  background:
+    linear-gradient(180deg,#1a1014 0%,#100d11 38%,#09090c 100%);
+  border-right:1px solid #61232d;
+  box-shadow:12px 0 50px #000b,inset -1px 0 0 #ff465511;
+}
+.valorant-theme .brand{
+  border-bottom:1px solid #ffffff12;
+}
+.valorant-theme .brand-mark{
+  background:linear-gradient(145deg,#ff6571,#e3263c);
+  color:white;
+  box-shadow:0 0 0 6px #ff465511,0 0 34px #ff465566;
+}
+.valorant-theme .brand b span{color:#ff4655}
+.valorant-theme .side-label{color:#a77a80}
+.valorant-theme .nav-game{
+  color:#c3b9bd;
+  transition:background .18s,border-color .18s,color .18s;
+}
+.valorant-theme .nav-game.active{
+  color:#fff;
+  background:linear-gradient(100deg,#ff465536,#ff46550c 76%,transparent);
+  border-color:#ff46554d;
+  box-shadow:inset 3px 0 0 #ff4655,0 0 26px #ff46551a;
+}
+.valorant-theme .nav-game.active .nav-icon{color:#ff7781}
+.valorant-theme .sidebar-note{
+  background:linear-gradient(145deg,#29151b,#151115);
+  border-color:#69313b;
+  box-shadow:inset 0 1px 0 #ffffff0c,0 10px 30px #0005;
+}
+.valorant-theme .live-dot{background:#ff4655;box-shadow:0 0 12px #ff4655}
+.valorant-theme .topbar{
+  background:#0b0a0ded;
+  border-bottom:1px solid #54232b;
+}
+.valorant-theme .breadcrumb b{color:#ffb1b7}
+.valorant-theme .data-status i{background:#ff4655;box-shadow:0 0 10px #ff4655}
+.valorant-theme .avatar{
+  background:linear-gradient(145deg,#4a1d27,#211116);
+  border:1px solid #8b3541;
+  color:#fff;
+}
+.valorant-theme .page-heading{
+  position:relative;
+  min-height:245px;
+  padding:36px 38px;
+  margin:0 0 22px;
+  overflow:hidden;
+  isolation:isolate;
+  display:flex;
+  align-items:center;
+  border:1px solid #7e303b;
+  border-radius:3px;
+  background:
+    linear-gradient(112deg,transparent 0 58%,#ff46551b 58.1% 58.5%,transparent 58.6%),
+    repeating-linear-gradient(135deg,transparent 0 26px,#ffffff06 27px,#ffffff06 28px,transparent 29px 54px),
+    radial-gradient(ellipse at 80% 48%,#e52c432d 0,transparent 38%),
+    linear-gradient(112deg,#35131b 0%,#211116 43%,#0d0d11 100%);
+  box-shadow:0 24px 58px #0009,inset 4px 0 0 #ff4655,inset 0 1px 0 #ffffff14;
+}
+.valorant-theme .page-heading:before{
+  content:"VALORANT";
+  position:absolute;
+  z-index:-1;
+  right:4%;
+  top:50%;
+  transform:translateY(-50%) skewX(-10deg);
+  color:#ffffff09;
+  font:900 clamp(64px,11vw,170px)/.8 'Space Grotesk',sans-serif;
+  letter-spacing:-.09em;
+  white-space:nowrap;
+  text-shadow:0 8px 35px #0008;
+}
+.valorant-theme .page-heading:after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  right:17%;
+  top:-25%;
+  width:260px;
+  height:150%;
+  border:1px solid #ff697544;
+  border-top:0;
+  border-bottom:0;
+  transform:skewX(-28deg);
+  background:linear-gradient(90deg,transparent,#ff46550c,transparent);
+  box-shadow:0 0 0 22px #ff465506,0 0 0 48px #ff465504;
+}
+.valorant-theme .page-heading>div:first-child{max-width:700px}
+.valorant-theme .page-heading .eyebrow{
+  color:#ff7c86;
+  letter-spacing:2.4px;
+  text-shadow:0 0 18px #ff465566;
+}
+.valorant-theme .page-heading h1{
+  font:700 clamp(42px,5vw,68px)/.98 'Space Grotesk',sans-serif;
+  text-transform:uppercase;
+  letter-spacing:-2.8px;
+  margin:13px 0 10px;
+  color:#fff;
+  text-shadow:0 6px 28px #000b;
+}
+.valorant-theme .page-heading h1 span{
+  color:#ff4655;
+  text-shadow:0 0 28px #ff465555;
+}
+.valorant-theme .page-heading p{
+  color:#d0c1c5;
+  font-size:13px;
+  letter-spacing:.1px;
+}
+.valorant-theme .period-badge{
+  align-self:flex-end;
+  background:#1b1015d9;
+  border:1px solid #8c3a46;
+  border-radius:2px;
+  color:#d6a8ae;
+  box-shadow:0 10px 30px #0007;
+}
+.valorant-theme .period-badge b{color:#fff}
+.valorant-theme .game-switch{
+  border:1px solid #3c252b;
+  border-top:2px solid #ff4655;
+  background:linear-gradient(90deg,#171014,#0d0d11);
+  padding:0 8px;
+  margin:0 0 24px;
+}
+.valorant-theme .game-switch button{
+  padding:15px 18px;
+  color:#9d9297;
+}
+.valorant-theme .game-switch button.selected{
+  color:#fff;
+  background:linear-gradient(180deg,#ff46551d,transparent);
+  border-bottom-color:#ff4655;
+  text-shadow:0 0 16px #ff465544;
+}
+.valorant-theme .switch-dot.red{
+  background:#ff4655;
+  box-shadow:0 0 12px #ff4655;
+}
+.valorant-theme .stats-grid{gap:14px}
+.valorant-theme .metric-card{
+  position:relative;
+  overflow:hidden;
+  border:1px solid #48252d;
+  border-radius:3px;
+  background:
+    linear-gradient(130deg,#ff465511,transparent 50%),
+    linear-gradient(145deg,#21171c,#111115 82%);
+  box-shadow:0 14px 34px #0007,inset 0 1px 0 #ffffff0b;
+}
+.valorant-theme .metric-card:before{
+  background:radial-gradient(circle,#ff465528 0,transparent 68%);
+}
+.valorant-theme .metric-card:after{
+  height:3px;
+  background:linear-gradient(90deg,#ff4655,#ff9aa1 48%,transparent);
+  box-shadow:0 0 15px #ff465566;
+}
+.valorant-theme .metric-top{color:#c6b9bd}
+.valorant-theme .metric-top i{
+  color:#ff6875;
+  filter:drop-shadow(0 0 8px #ff465566);
+}
+.valorant-theme .metric-card>strong{color:#fff}
+.valorant-theme .metric-card>small{color:#a99ba0}
+.valorant-theme .coverage-banner{
+  background:linear-gradient(100deg,#37151d,#201318 55%,#121115);
+  border:1px solid #6a303a;
+  border-radius:3px;
+  box-shadow:inset 3px 0 0 #ff4655,0 12px 30px #0006;
+}
+.valorant-theme .coverage-icon{
+  color:#ff6673;
+  background:#4a1b25;
+}
+.valorant-theme .source-tag{
+  color:#ff9aa2!important;
+  background:#391820;
+  border:1px solid #77323e;
+}
+.valorant-theme .section-title .eyebrow{color:#ff6b78}
+.valorant-theme .section-title h2{
+  color:#fff;
+  text-transform:uppercase;
+  letter-spacing:.2px;
+}
+.valorant-theme .section-title p{color:#aa9da2}
+.valorant-theme .section-count{
+  color:#ffb1b7;
+  border:1px solid #5b2c35;
+  background:#211318;
+  padding:7px 10px;
+}
+.valorant-theme .map-grid{gap:14px}
+.valorant-theme .map-card{
+  border:1px solid #48262e;
+  border-radius:3px;
+  background:linear-gradient(160deg,#21171c,#101014);
+  box-shadow:0 12px 30px #0007;
+}
+.valorant-theme .map-card:hover,
+.valorant-theme .map-card.map-active{
+  border-color:#ff4655;
+  box-shadow:0 0 0 1px #ff465566,0 0 28px #ff465522,0 18px 38px #0009;
+  transform:translateY(-3px);
+}
+.valorant-theme .map-art{
+  height:132px;
+  background-color:#28151b;
+  background-image:
+    linear-gradient(135deg,transparent 0 43%,#ff465525 43.2% 43.8%,transparent 44%),
+    repeating-linear-gradient(135deg,transparent 0 20px,#ffffff0a 21px,#ffffff0a 22px,transparent 23px 42px);
+}
+.valorant-theme .map-art-1{background-color:#2d171b}
+.valorant-theme .map-art-2{background-color:#171b28}
+.valorant-theme .map-art-3{background-color:#24172a}
+.valorant-theme .map-art-4{background-color:#2b2117}
+.valorant-theme .map-art-5{background-color:#14251f}
+.valorant-theme .map-art:after{
+  background:linear-gradient(0deg,#08090cf2 0%,#ff46551c 75%,transparent);
+}
+.valorant-theme .map-art span{
+  color:#ff7782;
+  text-shadow:0 0 15px #ff465577;
+}
+.valorant-theme .map-art b{
+  color:#fff;
+  text-shadow:0 4px 22px #000;
+}
+.valorant-theme .map-card-bottom{
+  background:linear-gradient(90deg,#1b1419,#111115);
+}
+.valorant-theme .map-card-bottom>span{color:#a99ba0}
+.valorant-theme .map-card-bottom>b{color:#f5ecee}
+.valorant-theme .map-card-bottom>strong{color:#ff6975}
+.valorant-theme .toolbar .search-box,
+.valorant-theme .toolbar .select-wrap{
+  background:#151115;
+  border-color:#563039;
+  border-radius:3px;
+}
+.valorant-theme .search-box:focus-within,
+.valorant-theme .select-wrap:focus-within{
+  border-color:#ff4655;
+  box-shadow:0 0 0 3px #ff46551f,0 0 18px #ff46551c;
+}
+.valorant-theme .team-table-wrap,
+.valorant-theme .player-table-wrap,
+.valorant-theme .player-list{
+  border:1px solid #48262e;
+  border-radius:3px;
+  background:#100f13;
+  box-shadow:0 16px 38px #0008;
+}
+.valorant-theme .team-table th,
+.valorant-theme .player-table th{
+  background:linear-gradient(90deg,#321a21,#211419);
+  color:#f0dfe2;
+  border-bottom:1px solid #75404a;
+}
+.valorant-theme .team-table td,
+.valorant-theme .player-table td{border-bottom-color:#332128}
+.valorant-theme .team-table tbody tr:nth-child(even),
+.valorant-theme .player-table tbody tr:nth-child(even){background:#ff465506}
+.valorant-theme .team-table tbody tr:hover,
+.valorant-theme .player-table tbody tr:hover{background:#ff465516}
+.valorant-theme .team-logo{
+  background:linear-gradient(145deg,#54232e,#211319);
+  border:1px solid #88404c;
+  color:#ffb0b7;
+}
+.valorant-theme .region-pill{
+  background:#28171d;
+  border-color:#62313b;
+  color:#e0c2c7;
+}
+.valorant-theme .mini-bar{background:#39252c}
+.valorant-theme .mini-bar i{
+  background:linear-gradient(90deg,#d9273c,#ff6975);
+  box-shadow:0 0 10px #ff465544;
+}
+.valorant-theme .detail-panel{
+  background:
+    radial-gradient(ellipse at 100% 0%,#ff465526,transparent 44%),
+    linear-gradient(160deg,#28171e,#100f13 75%);
+  border-left:1px solid #813b47;
+  box-shadow:-24px 0 80px #000b;
+}
+.valorant-theme .detail-kpis div{
+  background:linear-gradient(145deg,#3a1d26,#20151a);
+  border-color:#71404a;
+}
+.valorant-theme .detail-kpis b{color:#ffb0b7}
+.valorant-theme .detail-section{border-top-color:#563039}
+.valorant-theme .close-btn{
+  background:#3a1a23;
+  border-color:#87404b;
+}
+.valorant-theme .page-footer{
+  border-top-color:#4a252e;
+  color:#8f7e84;
+}
+@media(max-width:760px){
+  .valorant-theme .content{padding:20px 15px}
+  .valorant-theme .page-heading{min-height:205px;padding:24px 20px}
+  .valorant-theme .page-heading h1{font-size:38px}
+  .valorant-theme .page-heading:before{font-size:70px;right:-30px}
+  .valorant-theme .map-art{height:105px}
+}
