@@ -1086,3 +1086,48 @@ body{
  .valorant-theme .vch-bottomline{font-size:7px;letter-spacing:.5px}
  .valorant-theme .vch-actions{flex-wrap:wrap}
 }
+
+
+/* Agent artwork layer — cinematic VALORANT landing treatment */
+.valorant-theme .valorant-command-hero{
+ min-height:470px;
+ background:
+  linear-gradient(90deg,#0b0b10 0%,#0b0b10 34%,#0b0b10c9 49%,#0b0b1080 100%),
+  linear-gradient(0deg,#0b0b10 0%,transparent 34%,#0b0b1040 100%),
+  url("https://cdn.mos.cms.futurecdn.net/QotLyoh6LR4VT8KvE3tGze.jpg") center 36%/cover no-repeat,
+  #100d12;
+ border-color:#74313d;
+ box-shadow:0 28px 80px #000c,inset 4px 0 0 #ff4655;
+}
+.valorant-theme .valorant-command-hero:before{
+ opacity:.55;
+ background:
+  linear-gradient(112deg,#0b0b10 0%,#0b0b10ed 30%,#0b0b1066 58%,#0b0b1022 100%),
+  repeating-linear-gradient(135deg,transparent 0 34px,#ffffff09 35px,#ffffff09 36px,transparent 37px 68px),
+  radial-gradient(ellipse at 78% 48%,#ff465522 0,transparent 46%);
+}
+.valorant-theme .vch-main{min-height:365px;grid-template-columns:minmax(350px,48%) 1fr}
+.valorant-theme .vch-copy{padding:38px 0 44px}
+.valorant-theme .vch-copy h1{font-size:clamp(58px,6.8vw,96px);text-shadow:0 8px 32px #000}
+.valorant-theme .vch-visual{height:320px;background:linear-gradient(90deg,#0b0b1055,transparent)}
+.valorant-theme .vch-visual:before{
+ width:245px;height:245px;border-color:#ff46557a;
+ box-shadow:0 0 0 18px #ff465511,0 0 0 42px #ff465509,0 0 75px #ff465533;
+}
+.valorant-theme .vch-visual:after{width:178px;height:178px;border-color:#ffffff55}
+.valorant-theme .vch-reticle{
+ width:180px;height:180px;
+ background:linear-gradient(145deg,#ff46555c,#0b0b10e8 72%);
+ filter:drop-shadow(0 0 28px #ff465577);
+}
+.valorant-theme .vch-reticle b{font-size:96px}
+.valorant-theme .vch-topline,.valorant-theme .vch-bottomline{
+ color:#d4b9be;text-shadow:0 2px 8px #000;
+}
+.valorant-theme .vch-bottomline{background:#08090bc9}
+@media(max-width:760px){
+ .valorant-theme .valorant-command-hero{min-height:0;background-position:58% center}
+ .valorant-theme .vch-main{grid-template-columns:1fr}
+ .valorant-theme .vch-visual{height:190px}
+ .valorant-theme .vch-copy h1{font-size:54px}
+}
