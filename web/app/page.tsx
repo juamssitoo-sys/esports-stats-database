@@ -30,7 +30,7 @@ export default function Home(){
  const filteredLolPlayers=lolPlayers.filter(p=>{const q=search.toLowerCase(),teamOk=!selectedTeam||p.teams?.includes(selectedTeam.name);return teamOk&&(!q||p.handle.toLowerCase().includes(q)||p.teams?.some((t:string)=>t.toLowerCase().includes(q)));});
  const changeGame=(id:'valorant'|'lol'|'cs2')=>{if(id==='cs2'){window.location.href='/cs2';return;}setGame(id);setSearch('');setMapFilter('Todos');setRegion('Todas');setSelectedTeam(null);};
 
- return <main className="app-shell">
+ return <main className={'app-shell '+(game==='valorant'?'valorant-theme':'')}>
   <aside className="sidebar">
    <div className="brand"><div className="brand-mark"><Activity size={19}/></div><div><b>ESPORTS<span>ATLAS</span></b><small>DATA INTELLIGENCE</small></div></div>
    <div className="side-label">PLATAFORMA</div>
